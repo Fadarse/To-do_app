@@ -2,8 +2,22 @@ const inputElement = document.getElementById("input");
 const formElement = document.getElementById("form");
 const tasks = document.getElementById("tasks");
 
-
 formElement.addEventListener("submit", getText );
+function getText (event) {
+    event.preventDefault();
+    const value = event?.target?.elements?.text?.value;
+
+    if (value?.length < 1) 
+        {
+           return false;
+        }
+    renderTask(value);
+    item.push(value);
+ 
+    localStorage.setItem("tasks", JSON.stringify(item));
+    formElement.reset();
+};
+
 
 let item = [];
 
@@ -18,21 +32,6 @@ function renderTask(text) {
                                 <img class="delete-icon" src="icon/delete.svg" alt="icon" onclick="deleteTask(event)" data-id="${text}">
                             </div>`;
     tasks.appendChild(newDiv);
-};
-
-function getText (event) {
-    event.preventDefault();
-    const value = event?.target?.elements?.text?.value;
-
-    if (value?.length < 1) 
-        {
-           return false;
-        }
-    renderTask(value);
-    item.push(value);
- 
-    localStorage.setItem("tasks", JSON.stringify(item));
-    formElement.reset();
 };
 
 window.addEventListener("load",retrieveFromStore);
